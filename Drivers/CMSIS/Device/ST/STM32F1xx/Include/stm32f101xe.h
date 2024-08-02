@@ -4392,7 +4392,7 @@ typedef struct
 #define TIM_DIER_COMDE                      TIM_DIER_COMDE_Msk                 /*!<COM DMA request enable */
 #define TIM_DIER_TDE_Pos                    (14U)                              
 #define TIM_DIER_TDE_Msk                    (0x1U << TIM_DIER_TDE_Pos)         /*!< 0x00004000 */
-#define TIM_DIER_TDE                        TIM_DIER_TDE_Msk                   /*!<Trigger DMA request enable */
+#define TIM_DIER_TDE                        TIM_DIER_TDE_Msk                   /*!<Trigger DMA request  */
 
 /********************  Bit definition for TIM_SR register  *******************/
 #define TIM_SR_UIF_Pos                      (0U)                               
