@@ -607,6 +607,9 @@ int main(void) {
     buzzerTimer_prev = buzzerTimer;
     main_loop_counter++;
     }
+  
+    //check for the wheel not spinning at the CPU
+    printf("%u | %u", rtY_Left.n_mot, rtY_Right.n_mot);
   }
 }
 
