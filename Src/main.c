@@ -259,8 +259,11 @@ int main(void) {
       // ####### MOTOR ENABLING: Only if the initial input is very small (for SAFETY) #######
       if (enable == 0 && ((!rtY_Left.z_errCode && !rtY_Right.z_errCode && 
           ABS(input1[inIdx].cmd) < 50 && ABS(input2[inIdx].cmd) < 50) || STUPID_004_ERROR_FLAG)){
-        beepShort(6);                     // make 2 beeps indicating the motor enable
-        beepShort(4); HAL_Delay(100);
+        if (!STUPID_004_ERROR_FLAG) {
+          beepShort(6);                     // make 2 beeps indicating the motor enable
+          beepShort(4); 
+        }
+        HAL_Delay(100);
         steerFixdt = speedFixdt = 0;      // reset filters
         enable = 1;                       // enable motors
         STUPID_004_ERROR_FLAG = 0;
@@ -556,8 +559,8 @@ int main(void) {
       #endif
       poweroff();
     } else if (rtY_Left.z_errCode || rtY_Right.z_errCode) {                                           // 1 beep (low pitch): Motor error, disable motors
-      enable = 0;
-      beepCount(1, 24, 1);
+      //enable = 0;
+      //beepCount(1, 24, 1);
       STUPID_004_ERROR_FLAG = 1;
     } else if (timeoutFlgADC) {                                                                       // 2 beeps (low pitch): ADC timeout
       beepCount(2, 24, 1);
