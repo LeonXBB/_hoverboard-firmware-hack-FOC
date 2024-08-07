@@ -257,8 +257,8 @@ int main(void) {
 
     #ifndef VARIANT_TRANSPOTTER
       // ####### MOTOR ENABLING: Only if the initial input is very small (for SAFETY) #######
-      if ((enable == 0 && (!rtY_Left.z_errCode && !rtY_Right.z_errCode && 
-          ABS(input1[inIdx].cmd) < 50 && ABS(input2[inIdx].cmd) < 50)) || STUPID_004_ERROR_FLAG){
+      if (enable == 0 && ((!rtY_Left.z_errCode && !rtY_Right.z_errCode && 
+          ABS(input1[inIdx].cmd) < 50 && ABS(input2[inIdx].cmd) < 50) || STUPID_004_ERROR_FLAG)){
         if (!STUPID_004_ERROR_FLAG) {
           beepShort(6);                     // make 2 beeps indicating the motor enable
           beepShort(4); 

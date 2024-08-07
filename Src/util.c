@@ -1561,7 +1561,7 @@ void poweroffPressCheck(void) {
       uint16_t cnt_press = 0;
       while(HAL_GPIO_ReadPin(BUTTON_PORT, BUTTON_PIN)) {
         HAL_Delay(10);
-        if (cnt_press++ == 5 * 100) {}//beepShort(5); }
+        if (cnt_press++ == 5 * 100) { beepShort(5); }
       }
 
       if (cnt_press > 8) enable = 0;
@@ -1570,9 +1570,9 @@ void poweroffPressCheck(void) {
         HAL_Delay(1000);
         if (HAL_GPIO_ReadPin(BUTTON_PORT, BUTTON_PIN)) {  // Double press: Adjust Max Current, Max Speed
           while(HAL_GPIO_ReadPin(BUTTON_PORT, BUTTON_PIN)) { HAL_Delay(10); }
-          //beepLong(8);
+          beepLong(8);
           updateCurSpdLim();
-          //beepShort(5);
+          beepShort(5);
         } else {                                          // Long press: Calibrate ADC Limits
           #ifdef AUTO_CALIBRATION_ENA
           beepLong(16); 
