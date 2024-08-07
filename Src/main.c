@@ -263,6 +263,7 @@ int main(void) {
         beepShort(4); HAL_Delay(100);
         steerFixdt = speedFixdt = 0;      // reset filters
         enable = 1;                       // enable motors
+        STUPID_004_ERROR_FLAG = 0;
         #if defined(DEBUG_SERIAL_USART2) || defined(DEBUG_SERIAL_USART3)
         printf("-- Motors enabled --\r\n");
         #endif
