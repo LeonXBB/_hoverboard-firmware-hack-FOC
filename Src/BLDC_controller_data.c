@@ -369,7 +369,7 @@ P rtP_Left = {
   /* Variable: b_diagEna
    * Referenced by: '<S4>/b_diagEna'
    */
-  1,
+  0,
 
   /* Variable: b_fieldWeakEna
    * Referenced by:
