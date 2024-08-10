@@ -3318,7 +3318,7 @@ void BLDC_controller_initialize(RT_MODEL *const rtM)
   rtDW->Gain5 = -14400;
 
   /* SystemInitialize for Outport: '<S80>/id_max' */
-  rtDW->i_max = 12000;
+  rtDW->i_max = 9000;
 
   /* SystemInitialize for Outport: '<S80>/id_min' */
   rtDW->Gain4 = -12000;

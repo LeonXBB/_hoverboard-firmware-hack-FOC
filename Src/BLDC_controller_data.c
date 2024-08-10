@@ -229,7 +229,7 @@ P rtP_Left = {
    *   '<S36>/i_max'
    *   '<S80>/i_max'
    */
-  12000,
+  9000,
 
   /* Variable: id_fieldWeakMax
    * Referenced by: '<S42>/id_fieldWeakMax'
