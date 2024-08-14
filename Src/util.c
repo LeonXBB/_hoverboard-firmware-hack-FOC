@@ -51,7 +51,9 @@ extern uint8_t buzzerCount;             // global variable for the buzzer counts
 extern uint8_t buzzerFreq;              // global variable for the buzzer pitch. can be 1, 2, 3, 4, 5, 6, 7...
 extern uint8_t buzzerPattern;           // global variable for the buzzer pattern. can be 1, 2, 3, 4, 5, 6, 7...
 
-extern uint8_t enable;                  // global variable for motor enable
+//extern uint8_t enable;                  // global variable for motor enable
+extern uint8_t enableL;
+extern uint8_t enableR;
 
 extern uint8_t nunchuk_data[6];
 extern volatile uint32_t timeoutCntGen; // global counter for general timeout counter
@@ -1539,7 +1541,9 @@ void saveConfig() {
 
 
 void poweroff(void) {
-  enable = 0;
+  //enable = 0;
+  enableL = 0;
+  enableR = 0;
   #if defined(DEBUG_SERIAL_USART2) || defined(DEBUG_SERIAL_USART3)
   printf("-- Motors disabled --\r\n");
   #endif
@@ -1564,7 +1568,11 @@ void poweroffPressCheck(void) {
         if (cnt_press++ == 5 * 100) { beepShort(5); }
       }
 
-      if (cnt_press > 8) enable = 0;
+      if (cnt_press > 8) {
+        //enable = 0;
+        enableL = 0;
+        enableR = 0;
+      }
 
       if (cnt_press >= 5 * 100) {                         // Check if press is more than 5 sec
         HAL_Delay(1000);

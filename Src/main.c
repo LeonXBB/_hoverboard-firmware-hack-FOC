@@ -80,7 +80,9 @@ extern uint8_t timeoutFlgSerial;        // Timeout Flag for Rx Serial command: 0
 extern volatile int pwml;               // global variable for pwm left. -1000 to 1000
 extern volatile int pwmr;               // global variable for pwm right. -1000 to 1000
 
-extern uint8_t enable;                  // global variable for motor enable
+//extern uint8_t enable;                  // global variable for motor enable
+extern uint8_t enableL;
+extern uint8_t enableR;
 
 extern int16_t batVoltage;              // global variable for battery voltage
 
@@ -256,12 +258,13 @@ int main(void) {
 
     #ifndef VARIANT_TRANSPOTTER
       // ####### MOTOR ENABLING: Only if the initial input is very small (for SAFETY) #######
-      if (enable == 0 && !rtY_Left.z_errCode && !rtY_Right.z_errCode && 
+      if (enableL == 0 && enableR == 0 && !rtY_Left.z_errCode && !rtY_Right.z_errCode && 
           ABS(input1[inIdx].cmd) < 50 && ABS(input2[inIdx].cmd) < 50){
         beepShort(6);                     // make 2 beeps indicating the motor enable
         beepShort(4); HAL_Delay(100);
         steerFixdt = speedFixdt = 0;      // reset filters
-        enable = 1;                       // enable motors
+        enableL = 1;                       // enable motors
+        enableR = 1;
         #if defined(DEBUG_SERIAL_USART2) || defined(DEBUG_SERIAL_USART3)
         printf("-- Motors enabled --\r\n");
         #endif
@@ -552,9 +555,6 @@ int main(void) {
         printf("Powering off, battery voltage is too low\r\n");
       #endif
       poweroff();
-    } else if (rtY_Left.z_errCode || rtY_Right.z_errCode) {                                           // 1 beep (low pitch): Motor error, disable motors
-      enable = 0;
-      beepCount(1, 24, 1);
     } else if (timeoutFlgADC) {                                                                       // 2 beeps (low pitch): ADC timeout
       beepCount(2, 24, 1);
     } else if (timeoutFlgSerial) {                                                                    // 3 beeps (low pitch): Serial timeout
@@ -575,6 +575,8 @@ int main(void) {
       backwardDrive = 0;
     }
 
+    enableL = !rtY_Left.z_errCode;
+    enableR = !rtY_Right.z_errCode;
 
     inactivity_timeout_counter++;
 
