@@ -112,6 +112,7 @@ int16_t right_dc_curr;           // global variable for Right DC Link current
 int16_t dc_curr;                 // global variable for Total DC Link current 
 int16_t cmdL;                    // global variable for Left Command 
 int16_t cmdR;                    // global variable for Right Command 
+int error004Flag = 0;
 
 //------------------------------------------------------------------------
 // Local variables
@@ -256,10 +257,14 @@ int main(void) {
 
     #ifndef VARIANT_TRANSPOTTER
       // ####### MOTOR ENABLING: Only if the initial input is very small (for SAFETY) #######
-      if (enable == 0 && !rtY_Left.z_errCode && !rtY_Right.z_errCode && 
-          ABS(input1[inIdx].cmd) < 50 && ABS(input2[inIdx].cmd) < 50){
-        beepShort(6);                     // make 2 beeps indicating the motor enable
-        beepShort(4); HAL_Delay(100);
+      if ((enable == 0 && !rtY_Left.z_errCode && !rtY_Right.z_errCode && 
+          ABS(input1[inIdx].cmd) < 50 && ABS(input2[inIdx].cmd) < 50) || error004Flag){
+        if (!error004Flag) {
+          beepShort(6);                     // make 2 beeps indicating the motor enable
+          beepShort(4); HAL_Delay(100);
+        } else {
+          error004Flag = 0;
+        }
         steerFixdt = speedFixdt = 0;      // reset filters
         enable = 1;                       // enable motors
         #if defined(DEBUG_SERIAL_USART2) || defined(DEBUG_SERIAL_USART3)
@@ -553,8 +558,9 @@ int main(void) {
       #endif
       poweroff();
     } else if (rtY_Left.z_errCode || rtY_Right.z_errCode) {                                           // 1 beep (low pitch): Motor error, disable motors
-      enable = 0;
-      beepCount(1, 24, 1);
+      error004Flag = 1;
+      //enable = 0;
+      //beepCount(1, 24, 1);
     } else if (timeoutFlgADC) {                                                                       // 2 beeps (low pitch): ADC timeout
       beepCount(2, 24, 1);
     } else if (timeoutFlgSerial) {                                                                    // 3 beeps (low pitch): Serial timeout
