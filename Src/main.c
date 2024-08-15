@@ -256,6 +256,9 @@ int main(void) {
     readCommand();                        // Read Command: input1[inIdx].cmd, input2[inIdx].cmd
     calcAvgSpeed();                       // Calculate average measured speed: speedAvg, speedAvgAbs
 
+    enableL = !rtY_Left.z_errCode;
+    enableR = !rtY_Right.z_errCode;
+
     #ifndef VARIANT_TRANSPOTTER
       // ####### MOTOR ENABLING: Only if the initial input is very small (for SAFETY) #######
       if (enableL == 0 && enableR == 0 && !rtY_Left.z_errCode && !rtY_Right.z_errCode && 
