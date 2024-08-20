@@ -549,12 +549,12 @@ int main(void) {
       #if defined(DEBUG_SERIAL_USART2) || defined(DEBUG_SERIAL_USART3)
         printf("Powering off, temperature is too high\r\n");
       #endif
-      poweroff();
+      //poweroff();
     } else if ( BAT_DEAD_ENABLE && batVoltage < BAT_DEAD && speedAvgAbs < 20){
       #if defined(DEBUG_SERIAL_USART2) || defined(DEBUG_SERIAL_USART3)
         printf("Powering off, battery voltage is too low\r\n");
       #endif
-      poweroff();
+      //poweroff();
     } else if (timeoutFlgADC) {                                                                       // 2 beeps (low pitch): ADC timeout
       beepCount(2, 24, 1);
     } else if (timeoutFlgSerial) {                                                                    // 3 beeps (low pitch): Serial timeout
@@ -596,7 +596,7 @@ int main(void) {
       #if defined(DEBUG_SERIAL_USART2) || defined(DEBUG_SERIAL_USART3)
         printf("Powering off, wheels were inactive for too long\r\n");
       #endif
-      poweroff();
+      //poweroff();
     }
 
 

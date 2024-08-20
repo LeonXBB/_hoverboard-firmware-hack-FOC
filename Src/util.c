@@ -1592,7 +1592,7 @@ void poweroffPressCheck(void) {
         #if defined(DEBUG_SERIAL_USART2) || defined(DEBUG_SERIAL_USART3)
           printf("Powering off, button has been pressed\r\n");
         #endif
-      poweroff();
+      //poweroff();
       }
     }
   #elif defined(VARIANT_TRANSPOTTER)
